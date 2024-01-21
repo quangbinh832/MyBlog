@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@@themepixels">
+    <meta name="twitter:creator" content="@@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Slim">
+    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="twitter:image" content="http://themepixels.me/slim/img/slim-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/slim">
+    <meta property="og:title" content="Slim">
+    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+    <meta property="og:image" content="http://themepixels.me/slim/img/slim-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/slim/img/slim-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+
+    <title>@ViewData["Title"]</title>
+
+    <!-- vendor css -->
+    <link href="~/Adminassets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Adminassets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="~/Adminassets/lib/chartist/css/chartist.css" rel="stylesheet">
+    <link href="~/Adminassets/lib/rickshaw/css/rickshaw.min.css" rel="stylesheet">
+
+    <!-- Slim CSS -->
+    <link rel="stylesheet" href="~/Adminassets/css/slim.css">
+    <link href="~/Adminassets/css/slim.css" rel="stylesheet" />
+    @await RenderSectionAsync("Styles", required:false)
+</head>
+<body>
+    <div class="slim-header">
+        <div class="container">
+            <div class="slim-header-left">
+                <h2 class="slim-logo"><a href="/">Blog<span>.</span></a></h2>
+                <div class="search-box">
+                    <input type="text" class="form-control" placeholder="Search ">
+                    <button class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                </div><!-- search-box -->
+            </div><!-- slim- header-left -->
+            <div class="slim-header-right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    
+                    <div class="dropdown dropdown-c">
+                        <a href="#" class="logged-user" data-toggle="dropdown">
+                            <img src="https://s3.ap-northeast-1.amazonaws.com/h.files/images/1669649254577_fyp8FW49z5.jpg" alt="">
+                            <span>@User.Identity.Name.ToUpper()</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <nav class="nav">
+                                @*<a href="/thong-tin-tai-khoan.html/id?" class="nav-link"><i class="icon ion-person"></i>Thông tin tài khoản</a>*@
+                                @*<a href="/edit-profile.html" class="nav-link"><i class="icon ion-compose"></i> Edit Profile</a>*@
+                                <a href="/doi-mat-khau.html" class="nav-link"><i class="icon ion-ios-gear"></i>Thay đổi mật khẩu</a>
+                                <a href="/dang-xuat.html" class="nav-link"> <i class="icon ion-forward"></i>Đăng xuất</a>
+                            </nav>
+                        </div><!-- dropdown-menu -->
+                    </div> <!-- dropdown -->
+                }
+            </div><!-- header-right-->
+        </div><!-- container -->
+    </div><!-- slim-header -->
+
+    <div class="slim-navbar">
+        <div class="container">
+            <ul class="nav">
+                <li class="nav-item with-sub active">
+                    <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <i class="icon ion-ios-home-outline"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="nav-item with-sub">
+                    <a class="nav-link" href="#">
+                        <i class="icon ion-ios-filing-outline"></i>
+                        <span> BÀI VIẾT</span>
+                    </a>
+                    <div class="sub-item">
+                        <ul>
+                            <li><a asp-area="Admin" asp-controller="Posts" asp-action="Index">QUẢN LÝ BÀI VIẾT</a></li>
+                            <li><a asp-area="Admin" asp-controller="Posts" asp-action="Create">THÊM MỚI BÀI VIẾT</a></li>
+                        </ul>
+                    </div><!--dropdown-menu-->
+                </li>
+                <li class="nav-item with-sub">
+                    <a class="nav-link" href="#" data-toggle="dropdown">
+                        <i class="icon ion-ios-gear-outline"></i>
+                        <span>HỆ THỐNG</span>
+                    </a>
+                    <div class="sub-item">
+                        <ul>
+                            <li><a asp-area="Admin" asp-controller="Categories" asp-action="Index">QUẢN LÝ DANH MỤC</a></li>
+                            <li><a asp-area="Admin" asp-controller="Accounts" asp-action="Index">QUẢN LÝ TÀI KHOẢN</a></li>
+                            <li><a asp-area="Admin" asp-controller="Roles" asp-action="Index">QUYỀN TRUY CẬP</a></li>
+                        </ul>
+                    </div><!--dropdown-menu-->
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-area="Admin" asp-action="Index">
+                        <i class="icon ion-android-favorite"> </i>
+                        <span>XIN CHÀO</span>
+                    </a>
+                </li>
+            </ul>
+        </div><!--container-->
+    </div>
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            @RenderBody()
+
+        </div><!-- container -->
+    </div><!-- slim-mainpanel -->
+
+    <div class="slim-footer">
+        <div class="container">
+            <p>Copyright 2018 &copy; All Rights Reserved. Slim Dashboard Template</p>
+            <p>Designed by: <a href="">ThemePixels</a></p>
+        </div><!-- container -->
+    </div><!-- slim-footer -->
+
+    <script src="~/Adminassets/lib/jquery/js/jquery.js"></script>
+    <script src="~/Adminassets/lib/popper.js/js/popper.js"></script>
+    <script src="~/Adminassets/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Adminassets/lib/jquery.cookie/js/jquery.cookie.js"></script>
+    <script src="~/Adminassets/lib/chartist/js/chartist.js"></script>
+    <script src="~/Adminassets/lib/d3/js/d3.js"></script>
+    <script src="~/Adminassets/lib/rickshaw/js/rickshaw.min.js"></script>
+    <script src="~/Adminassets/lib/jquery.sparkline.bower/js/jquery.sparkline.min.js"></script>
+
+    <script src="~/Adminassets/js/ResizeSensor.js"></script>
+    <script src="~/Adminassets/js/dashboard.js"></script>
+    <script src="~/Adminassets/js/slim.js"></script>
+    @await RenderSectionAsync("Scripts", required:false)
+</body>
+</html>

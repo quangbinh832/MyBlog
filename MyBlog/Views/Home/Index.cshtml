@@ -1,0 +1,403 @@
+﻿@model MyBlog.ModelViews.HomeViewModel
+
+
+
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- hero section -->
+<section id="hero">
+
+    <div class="container-xl">
+
+        <div class="row gy-4">
+            @if (Model.Featured != null)
+            {
+                string url = $"/{Model.Featured.Alias}.html";
+
+                <div class="col-lg-8">
+
+                    <!-- featured post large -->
+                    <div class="post featured-post-lg">
+                        <div class="details clearfix">
+                            <a href="/@Model.Featured.Cat.Alias" class="category-badge">@Model.Featured.Cat.CatName</a>
+                            <h2 class="post-title"><a href="@url">@Model.Featured.Title</a></h2>
+                            <ul class="meta list-inline mb-0">
+                                <li class="list-inline-item"><a href="#">@Model.Featured.Author</a></li>
+                                <li class="list-inline-item">@Model.Featured.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                            </ul>
+                        </div>
+                        <a href="@url">
+                            <div class="thumb rounded">
+                                <div class="inner data-bg-image" data-bg-image="~/images/posts/@Model.Featured.Thumb">
+                                    <img src="~/images/posts/trend1.jpg" alt="@Model.Featured.Title" />
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            }
+
+            <div class="col-lg-4">
+
+                <!-- post tabs -->
+                <div class="post-tabs rounded bordered">
+                    <!-- tab navs -->
+                    <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+                        <li class="nav-item" role="presentation"><button aria-controls="popular" aria-selected="true" class="nav-link active" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Phổ biến</button></li>
+                        <li class="nav-item" role="presentation"><button aria-controls="recent" aria-selected="false" class="nav-link" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Gần đây</button></li>
+                    </ul>
+                    <!-- tab contents -->
+                    <div class="tab-content" id="postsTabContent">
+                        <!-- loader -->
+                        <div class="lds-dual-ring"></div>
+                        <!-- popular posts -->
+                        <div aria-labelledby="popular-tab" class="tab-pane fade show active" id="popular" role="tabpanel">
+                            @if (Model.Populars != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model.Populars)
+                                {
+
+                                    string url = $"/{item.Alias}.html";
+                                    <!-- post -->
+                                    <div class="post post-list-sm circle">
+                                        <div class="thumb circle">
+                                            <a href="@url">
+                                                <div class="inner">
+                                                    <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="details clearfix">
+                                            <h6 class="post-title my-0"><a href="@url">@item.Title</a></h6>
+                                            <ul class="meta list-inline mt-1 mb-0">
+                                                <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    i++;
+                                    if (i == 4) break;
+                                }
+
+                            }
+
+                            <!-- recent posts -->
+                            <div aria-labelledby="recent-tab" class="tab-pane fade" id="recent" role="tabpanel">
+                                @if (Model.Recents != null)
+                                {
+                                    int i = 0;
+                                    foreach (var item in Model.Recents)
+                                    {
+                                        string url = $"/{item.Alias}.html";
+                                        <!-- post -->
+                                        <div class="post post-list-sm circle">
+                                            <div class="thumb circle">
+                                                <a href="@url">
+                                                    <div class="inner">
+                                                        <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="details clearfix">
+                                                <h6 class="post-title my-0"><a href="@url">@item.Title</a></h6>
+                                                <ul class="meta list-inline mt-1 mb-0">
+                                                    <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        i++;
+                                        if (i == 2) break;
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- section main content -->
+<section class="main-content">
+    <div class="container-xl">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-8">
+
+                <!--horizontal ads-->
+                <div class="ads-horizontal text-md-center">
+                    <span class="ads-title">- Quảng cáo -</span>
+                    <a href="#">
+                        <img src="~/images/ads/ad-750.png" alt="Advertisement" />
+                    </a>
+                </div>
+
+              @*  <div class="spacer" data-height="50"></div>
+
+                <!--section header-->
+                <div class="section-header">
+                    <h3 class="section-title">Xu hướng</h3>
+                    <img src="~/images/wave.svg" class="wave" alt="wave" />
+                </div>
+
+                <div class="padding-30 rounded bordered">
+                    <div class="row gy-5">
+                        <div class="col-sm-6">
+                            @if (Model.Trendings != null)
+                            {
+                                foreach (var item in Model.Trendings)
+                                {
+                                    int i = 0;
+                                    string url = $"/{item.Alias}.html";
+                                    <!--post-->
+                                    <div class="post post-list-sm square before-seperator">
+                                        <div class="thumb rounded">
+                                            <a href="@url">
+                                                <div class="inner">
+                                                    <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="details clearfix">
+                                            <h6 class="post-title my-0"><a href="@url">@item.Title</a></h6>
+                                            <ul class="meta list-inline mt-1 mb-0">
+                                                <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    i++;
+                                    if (i == 2) break;
+                                }
+                            }
+                        </div>
+                        <div class="col-sm-6">
+
+                            @if (Model.Inspiration != null)
+                            {
+                                foreach (var item in Model.Inspiration)
+                                {
+                                    int i = 0;
+                                    string url = $"/{item.Alias}.html";
+                                    <!--post-->
+                                    <div class="post post-list-sm square before-seperator">
+                                        <div class="thumb rounded">
+                                            <a href="@url">
+                                                <div class="inner">
+                                                    <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="details clearfix">
+                                            <h6 class="post-title my-0"><a href="@url">@item.Title</a></h6>
+                                            <ul class="meta list-inline mt-1 mb-0">
+                                                <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    i++;
+                                    if (i == 2) break;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="spacer" data-height="50"></div>
+
+                <!-- section header -->
+                <div class="section-header">
+                    <h3 class="section-title">Phổ biến</h3>
+                    <img src="~/images/wave.svg" class="wave" alt="wave" />
+                    <div class="slick-arrows-top">
+                        <button type="button" data-role="none" class="carousel-topNav-prev slick-custom-buttons" aria-label="Previous"><i class="icon-arrow-left"></i></button>
+                        <button type="button" data-role="none" class="carousel-topNav-next slick-custom-buttons" aria-label="Next"><i class="icon-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="row post-carousel-twoCol post-carousel">
+                    <!-- post -->
+                    @if (Model.Populars != null)
+                    {
+                        foreach (var item in Model.Populars)
+                        {
+                            string url = $"/{item.Alias}.html";
+                            <div class="post post-over-content col-md-6">
+                                <div class="details clearfix">
+                                    <a href="@url" class="category-badge">Inspiration</a>
+                                    <h4 class="post-title"><a href="blog-single.html">@item.Title</a></h4>
+                                    <ul class="meta list-inline mb-0">
+                                        <li class="list-inline-item"><a href="#">@item.Author</a></li>
+                                        <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                    </ul>
+                                </div>
+                                <a href="blog-single.html">
+                                    <div class="thumb rounded">
+                                        <div class="inner">
+                                            <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                    @if (Model.Recents != null)
+                    {
+                        foreach (var item in Model.Recents)
+                        {
+                            string url = $"/{item.Alias}.html";
+                            <div class="post post-over-content col-md-6">
+                                <div class="details clearfix">
+                                    <a href="@url" class="category-badge">Inspiration</a>
+                                    <h4 class="post-title"><a href="blog-single.html">@item.Title</a></h4>
+                                    <ul class="meta list-inline mb-0">
+                                        <li class="list-inline-item"><a href="#">@item.Author</a></li>
+                                        <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                    </ul>
+                                </div>
+                                <a href="blog-single.html">
+                                    <div class="thumb rounded">
+                                        <div class="inner">
+                                            <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+
+
+
+                </div>
+
+                <div class="spacer" data-height="50"></div>
+
+                <!-- section header -->
+                <div class="section-header">
+                    <h3 class="section-title">Bài viết mới nhất</h3>
+                    <img src="~/images/wave.svg" class="wave" alt="wave" />
+                </div>
+
+                <div class="padding-30 rounded bordered">
+
+                    <div class="row">
+                        @if (Model.LatestPosts != null && Model.LatestPosts.Count > 0)
+                        {
+                            int i = 0;
+                            foreach (var item in Model.LatestPosts)
+                            {
+                                string url = $"/{item.Alias}.html";
+                                <div class="col-md-12 col-sm-6">
+                                    <!-- post -->
+                                    <div class="post post-list clearfix">
+                                        <div class="thumb rounded">
+                                            <span class="post-format-sm">
+                                                <i class="icon-picture"></i>
+                                            </span>
+                                            <a href="@url">
+                                                <div class="inner">
+                                                    <img src="~/images/posts/@item.Thumb" alt="@item.Title" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="details">
+                                            <ul class="meta list-inline mb-3">
+                                                <li class="list-inline-item"><a href="#">@item.Author</a></li>
+                                                <li class="list-inline-item"><a href="/@item.Cat.Alias">@item.Cat.CatName</a></li>
+                                                <li class="list-inline-item">@item.CreatedDate.Value.ToString("yyyy MMMM dd")</li>
+                                            </ul>
+                                            <h5 class="post-title"><a href="@url">@item.Title</a></h5>
+                                            <p class="excerpt mb-0">@item.Scontents</p>
+                                            <div class="post-bottom clearfix d-flex align-items-center">
+                                                <div class="social-share me-auto">
+                                                    <button class="toggle-button icon-share"></button>
+                                                    <ul class="icons list-unstyled list-inline mb-0">
+                                                        @await Component.InvokeAsync("Social")
+                                                    </ul>
+                                                </div>
+                                                <div class="more-button float-end">
+                                                    <a href="@url"><span class="icon-options"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                i++;
+                                if (i == 10) break;
+                            }
+                        }
+                    </div>
+                    <!-- load more button -->
+                    <div class="text-center">
+                        <button class="btn btn-simple">Tải thêm</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+
+                <!--sidebar-->
+                <div class="sidebar">
+                    <!--widget about-->
+                    <div class="widget rounded">
+                        <div class="widget-about data-bg-image text-center" data-bg-image="~/images/map-bg.png">
+                            <img src="~/images/logo.svg" alt="logo" class="mb-4" />
+                            <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion, celebrity and lifestyle. We helps clients bring the right content to the right people.</p>
+                            <ul class="social-icons list-unstyled list-inline mb-0">
+                                @await Component.InvokeAsync("Social")
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- widget popular posts -->
+                    @await Component.InvokeAsync("Popular")
+
+                    <!-- widget categories -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Danh mục bài viết</h3>
+                            <img src="~/images/wave.svg" class="wave" alt="wave" />
+                        </div>
+                        @await Component.InvokeAsync("Categories")
+
+                    </div>
+
+                    <!-- widget advertisement -->
+                    <div class="widget no-container rounded text-md-center">
+                        <span class="ads-title">- Sponsored Ad -</span>
+                        <a href="#" class="widget-ads">
+                            <img src="~/images/ads/ad-360.png" alt="Advertisement" />
+                        </a>
+                    </div>
+
+                    <!-- widget tags -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Tag Clouds</h3>
+                            <img src="~/images/wave.svg" class="wave" alt="wave" />
+                        </div>
+                        <div class="widget-content">
+                            <a href="#" class="tag">#Trending</a>
+                            <a href="#" class="tag">#Video</a>
+                            <a href="#" class="tag">#Featured</a>
+                            <a href="#" class="tag">#Gallery</a>
+                            <a href="#" class="tag">#Celebrities</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

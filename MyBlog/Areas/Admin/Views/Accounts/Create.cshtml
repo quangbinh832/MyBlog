@@ -1,0 +1,62 @@
+﻿@model MyBlog.Models.Account
+
+@{
+    ViewData["Title"] = "Tạo mới tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="slim-pageheader">
+    <ol class="breadcrumb slim-breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Accounts" asp-action="Index">Danh sách tài khoản</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tạo mới tài khoản</li>
+    </ol>
+    <h6 class="slim-pagetitle">Tạo mới tài khoản</h6>
+</div> <!--slim-pageheader-->
+
+<div class="section-wrapper">
+
+    <form asp-area="Admin" asp-controller="Accounts" asp-action="Create" method="post">
+        <div class="form-layout form-layout-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <label asp-for="FullName" class="col-sm-4 form-control-label">Tên tài khoản: </label>
+                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                    <input asp-for="FullName" type="text" class="form-control" placeholder="Tên tài khoản">
+                </div>
+            </div><!-- row -->
+            <div class="row mg-t-20">
+                <label asp-for="Email" class="col-sm-4 form-control-label">Email: </label>
+                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                    <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="row mg-t-20">
+                <label asp-for="Phone" class="col-sm-4 form-control-label">Số điện thoại: </label>
+                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                    <input asp-for="Phone" type="text" class="form-control" placeholder="Số điện thoại">
+                </div>
+            </div>
+            <div class="row mg-t-20">
+                <label asp-for="Password" class="col-sm-4 form-control-label">Mật khẩu: </label>
+                <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                    <input asp-for="Password" type="text" class="form-control" placeholder="Mật khẩu">
+                </div>
+            </div>
+            <hr />
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" />Trạng thái
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label">Quyền truy cập</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div style="text-align:center !important" class="form-layout-footer">
+                <button class="btn btn-primary bd-0">Lưu thay đổi</button>
+                <button class="btn btn-secondary bd-0" a asp-area="Admin" asp-controller="Accounts" asp-action="Index">Thoát</button>
+            </div><!-- form-layout-footer -->
+        </div><!-- form-layout -->
+    </form>
+</div>
