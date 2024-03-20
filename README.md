@@ -9,4 +9,6 @@ Missions (Features):
 - Delegation of administrative rights 
 - Building User Interfaces
 Technology:
-- Jquery, Bootstraps, Asp.net core 5.0, SQL Server
+- Front-end: Html, Css, Javascipt, Jquery, Bootstraps
+- Database: SQL Server
+- Back-end: Asp.net Core 5.0
