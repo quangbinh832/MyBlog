@@ -145,6 +145,8 @@
     <script src="~/Adminassets/js/ResizeSensor.js"></script>
     <script src="~/Adminassets/js/dashboard.js"></script>
     <script src="~/Adminassets/js/slim.js"></script>
-    @await RenderSectionAsync("Scripts", required:false)
+    @*@await RenderSectionAsync("Scripts", required:false)*@
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

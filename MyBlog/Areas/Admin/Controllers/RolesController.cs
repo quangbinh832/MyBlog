@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +17,12 @@ namespace MyBlog.Areas.Admin.Controllers
     public class RolesController : Controller
     {
         private readonly dbMyBlogsContext _context;
+        public INotyfService _notifyService { get; }
 
-        public RolesController(dbMyBlogsContext context)
+        public RolesController(dbMyBlogsContext context, INotyfService notifyService)
         {
             _context = context;
+            _notifyService = notifyService;
         }
 
         // GET: Admin/Roles
@@ -63,6 +66,7 @@ namespace MyBlog.Areas.Admin.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                _notifyService.Success("Success");
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
@@ -102,11 +106,13 @@ namespace MyBlog.Areas.Admin.Controllers
                 {
                     _context.Update(role);
                     await _context.SaveChangesAsync();
+                    _notifyService.Success("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!RoleExists(role.RoleId))
                     {
+                        _notifyService.Warning("Fail");
                         return NotFound();
                     }
                     else
@@ -145,6 +151,7 @@ namespace MyBlog.Areas.Admin.Controllers
             var role = await _context.Roles.FindAsync(id);
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
+            _notifyService.Success("Success");
             return RedirectToAction(nameof(Index));
         }
 
