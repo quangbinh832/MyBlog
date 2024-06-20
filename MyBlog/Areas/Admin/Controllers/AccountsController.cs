@@ -155,7 +155,7 @@ namespace MyBlog.Areas.Admin.Controllers
                         account.Password = (model.Password + account.Salt.Trim()).ToMD5();
                         _context.Update(account);
                         _context.SaveChanges();
-                        return RedirectToAction("Profile", "Account", new { Area = "Admin" });
+                        return Redirect("/admin.html");
                     }
                     else //mật khẩu không đúng trả về lại View
                     {
